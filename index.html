@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>TinyRoom — Temporary Private Chat</title>
+  <meta name="description" content="A tiny temporary two-person chat room. No email or password required.">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="shell">
+    <section id="homeView" class="card">
+      <div class="brand">TinyRoom</div>
+      <h1>Temporary private chat.</h1>
+      <p class="lead">Create a room, share one link, chat with one person, then let the room expire.</p>
+      <div class="privacy-note">
+        <strong>No email. No password.</strong>
+        <span>Firebase uses a temporary anonymous identity to protect the room.</span>
+      </div>
+      <button id="createBtn" class="primary">Create private room</button>
+      <div class="divider"><span>or</span></div>
+      <label for="roomInput">Have an invite code?</label>
+      <div class="join-row">
+        <input id="roomInput" autocomplete="off" inputmode="text" maxlength="64" placeholder="Paste room code">
+        <button id="joinBtn" class="secondary">Join</button>
+      </div>
+      <p id="homeStatus" class="status" role="status"></p>
+    </section>
+
+    <section id="joinView" class="card hidden">
+      <div class="brand">TinyRoom</div>
+      <h1>Join private room</h1>
+      <p class="lead">Choose a nickname. You do not need an account.</p>
+      <div class="room-preview"><span>Room</span><code id="joinRoomCode">—</code></div>
+      <label for="nicknameInput">Nickname</label>
+      <input id="nicknameInput" autocomplete="nickname" maxlength="24" placeholder="e.g. Alex">
+      <button id="confirmJoinBtn" class="primary">Join room</button>
+      <button id="cancelJoinBtn" class="link-btn">Cancel</button>
+      <p id="joinStatus" class="status" role="status"></p>
+    </section>
+
+    <section id="chatView" class="chat-card hidden">
+      <header class="chat-header">
+        <div>
+          <div class="brand small">TinyRoom</div>
+          <div class="room-line">Room <code id="chatRoomCode">—</code></div>
+        </div>
+        <div class="header-actions">
+          <button id="copyBtn" class="icon-btn" title="Copy invite link">Copy link</button>
+          <button id="deleteBtn" class="danger-outline">Delete</button>
+        </div>
+      </header>
+      <div class="timer-bar">
+        <span id="roomState">Waiting for another person…</span>
+        <strong id="countdown">60:00</strong>
+      </div>
+      <div id="messages" class="messages" aria-live="polite"></div>
+      <form id="messageForm" class="composer">
+        <div class="emoji-row" aria-label="Emoji shortcuts">
+          <button type="button" class="emoji">😀</button>
+          <button type="button" class="emoji">😂</button>
+          <button type="button" class="emoji">❤️</button>
+          <button type="button" class="emoji">👍</button>
+          <button type="button" class="emoji">😊</button>
+          <button type="button" class="emoji">😎</button>
+        </div>
+        <div class="send-row">
+          <input id="messageInput" autocomplete="off" maxlength="500" placeholder="Write a message…">
+          <button id="sendBtn" class="primary send" type="submit">Send</button>
+        </div>
+        <div class="composer-meta"><span>Text + emoji only</span><span id="charCount">0/500</span></div>
+      </form>
+      <footer class="chat-footer">
+        <span id="chatStatus" class="status" role="status"></span>
+        <button id="leaveBtn" class="link-btn">Leave room</button>
+      </footer>
+    </section>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

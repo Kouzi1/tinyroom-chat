@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "rooms": {
+      "$roomId": {
+        ".read": false,
+        ".write": "auth != null && data.exists() && newData.val() == null && (data.child('info/ownerUid').val() == auth.uid || data.child('info/guestUid').val() == auth.uid)",
+        "info": {
+          ".read": "auth != null && data.exists()",
+          ".write": "auth != null && (( !data.exists() && newData.child('ownerUid').val() == auth.uid && newData.child('ownerName').isString() && newData.child('ownerName').val().length >= 1 && newData.child('ownerName').val().length <= 24 && newData.child('guestUid').val() == null && newData.child('guestName').val() == null && newData.child('createdAt').isNumber() && newData.child('expiresAt').isNumber() && newData.child('expiresAt').val() == newData.child('createdAt').val() + 3600000 && newData.child('createdAt').val() <= now + 60000 && newData.child('createdAt').val() >= now - 60000 ) || ( data.exists() && data.child('guestUid').val() == null && data.child('ownerUid').val() != auth.uid && newData.child('guestUid').val() == auth.uid && newData.child('guestName').isString() && newData.child('guestName').val().length >= 1 && newData.child('guestName').val().length <= 24 && newData.child('ownerUid').val() == data.child('ownerUid').val() && newData.child('ownerName').val() == data.child('ownerName').val() && newData.child('createdAt').val() == data.child('createdAt').val() && newData.child('expiresAt').val() == data.child('expiresAt').val() ) || ( data.exists() && data.child('ownerUid').val() == auth.uid && newData.child('ownerUid').val() == data.child('ownerUid').val() && newData.child('guestUid').val() == data.child('guestUid').val() && newData.child('createdAt').val() == data.child('createdAt').val() && newData.child('expiresAt').val() == data.child('expiresAt').val() && newData.child('ownerName').isString() && newData.child('ownerName').val().length >= 1 && newData.child('ownerName').val().length <= 24 ) || ( data.exists() && data.child('guestUid').val() == auth.uid && newData.child('ownerUid').val() == data.child('ownerUid').val() && newData.child('guestUid').val() == data.child('guestUid').val() && newData.child('createdAt').val() == data.child('createdAt').val() && newData.child('expiresAt').val() == data.child('expiresAt').val() && newData.child('guestName').isString() && newData.child('guestName').val().length >= 1 && newData.child('guestName').val().length <= 24 ))",
+          ".validate": "newData.hasChildren(['ownerUid','ownerName','createdAt','expiresAt'])"
+        },
+        "messages": {
+          ".read": "auth != null && (data.parent().child('info/ownerUid').val() == auth.uid || data.parent().child('info/guestUid').val() == auth.uid)",
+          ".write": false,
+          ".indexOn": ["createdAt"],
+          "$messageId": {
+            ".write": "auth != null && !data.exists() && newData.exists() && (data.parent().parent().child('info/ownerUid').val() == auth.uid || data.parent().parent().child('info/guestUid').val() == auth.uid) && newData.child('uid').val() == auth.uid && newData.child('name').isString() && newData.child('name').val().length >= 1 && newData.child('name').val().length <= 24 && newData.child('text').isString() && newData.child('text').val().length >= 1 && newData.child('text').val().length <= 500 && newData.child('createdAt').isNumber() && newData.child('createdAt').val() <= now + 60000 && newData.child('createdAt').val() >= now - 120000 && data.parent().parent().child('info/expiresAt').val() > now",
+            ".validate": "newData.hasChildren(['uid','name','text','createdAt'])"
+          }
+        }
+      }
+    }
+  }
+}
