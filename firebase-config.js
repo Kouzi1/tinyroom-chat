@@ -1,7 +1,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyDNoBwUAWNaumAWl-RVHkuJrJWVt8SFXvo",
   authDomain: "kloz-14442.firebaseapp.com",
-  databaseURL: "https://console.firebase.google.com/project/kloz-14442/database/kloz-14442-default-rtdb/data/~2F",
+  databaseURL: "https://kloz-14442-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "kloz-14442",
   storageBucket: "kloz-14442.firebasestorage.app",
   messagingSenderId: "544394652807",
